@@ -2,7 +2,7 @@
 
 ## Instructions for running
 
-Change the username, password, secretToken and login server url for the env_config.json file. If you do not have a secret token, you can retrieve one by
+Create a json file named `env_config.json`. You can copy the contents of the `sample_env_config.json` file. Change the username, password, secretToken and login server url for the `env_config.json` file. If you do not have a secret token, you can retrieve one by
 going to the personal settings in your salesforce org for your username, clicking on the `Reset My Security Token` and then pushing the `Reset Security Token` button. The new security token will be emailed to the associated email account for your username. 
 
 ```
