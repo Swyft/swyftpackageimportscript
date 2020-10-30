@@ -5,38 +5,20 @@ export default async function importSwyftConfig(setup) {
     try {
         const result = await fsPromise.readFile('swyftsfs__Swyft_Menu_Config__cs.json');
         const json_data = JSON.parse(result);
-        json_data.records.forEach(item => {
+
+        for (const item of json_data.records) {
             const config = createConfig({ 'serverUrl': setup.serverUrl, 'token': setup.accessToken, 'data': item });
-            axios(config)
-                .then(function (response) {
-                    console.log(JSON.stringify(response.data));
-                })
-                .catch(function (error) {
-                    console.log('Err occured');
-                });
-        });
+            try {
+                const response = await axios(config);
+                console.log(response.data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
     } catch (err) {
         console.error(err);
     }
 }
-
-/*
-fs.readFile('swyftsfs__Swyft_Menu_Config__cs.json', function (err, result) {
-    if (err) console.error(err);
-    const json_data = JSON.parse(result);
-    console.log(json_data.records.length); 
-    json_data.records.forEach(item => {
-        const config = createConfig(item);
-        axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    });
-});
-*/
 
 function createConfig(setup) {
     return {

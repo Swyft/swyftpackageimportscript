@@ -7,15 +7,15 @@ export default async function process(setup) {
     const data = JSON.parse(strdata);
     const records = data.records;
 
-    records.forEach(record => {
+    for (const record of records) {
         const config = createConfig({ 'serverUrl': setup.serverUrl, 'token': setup.accessToken, 'data': record });
-        axios(config)
-            .then(response => {
-                console.log(JSON.stringify(response.data));
-            }).catch(err => {
-                console.error(err);
-            });
-    });
+        try {
+            const response = await axios(config);
+            console.log(response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
 }
 
 function createConfig(setup) {

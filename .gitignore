@@ -114,6 +114,8 @@ dist
 .vscode-test
 
 env_config.json
+swyftsfs__Swyft_Menu_Config__cs.json
+swyftsfs__Swyft_Quick_Action__cs.json
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 n

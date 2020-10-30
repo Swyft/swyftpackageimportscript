@@ -4,7 +4,6 @@ import exportquickactions from './exportquickactions.js';
 import importswyftconfig from './importswyftconfig.js';
 import importquickactions from './importquickactions.js';
 
-// Login and get access token with serverUrl
 console.log('Script Beginning UI API import');
 const servermetainfo = await getOAuthAccessToken();
 await exportuiapi(servermetainfo);
