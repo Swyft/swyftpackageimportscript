@@ -32,7 +32,9 @@ npm install
 To run this script, execute the following command in your terminal;
 
 ```cli
-node runall.mjs
+node runall.js
+// or
+npm start
 ```
 
 # Rerunning the script
@@ -46,4 +48,4 @@ delete configs;
 List<swyftsfs__Swyft_Quick_Action__c> actions = [SELECT Id FROM swyftsfs__Swyft_Quick_Action__c];
 delete actions;
 
-```# swyftpackageimportscript
+```
