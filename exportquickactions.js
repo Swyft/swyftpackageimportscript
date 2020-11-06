@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { promises as fsPromise } from 'fs';
+const axios = require('axios');
+const fsPromise = require('fs').promises;
 
 let token = '';
 let serverUrl = 'https://swyftprod--Preview1.my.salesforce.com';
@@ -8,7 +8,7 @@ let globalQuickActions = {
     records: []
 };
 
-export default async function process(setup) {
+async function process(setup) {
     token = setup.accessToken;
     serverUrl = setup.serverUrl;
     const config = createMainConfig({ 
@@ -128,3 +128,5 @@ function createRecord(item) {
             "swyftsfs__sourceObject__c": item.sourceObject
     };
 }
+
+module.exports = process;

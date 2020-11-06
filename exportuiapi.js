@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { promises as fsPromise } from 'fs';
+const axios = require('axios');
+const fsPromise = require('fs').promises;
 
 let globalApps = [];
 let globalMenuJson = {
@@ -9,7 +9,7 @@ let globalMenuJson = {
 let serverUrl = 'https://swyftprod--Preview1.my.salesforce.com';
 let token = '';
 
-export default async function process(setup) {
+async function process(setup) {
     token = setup.accessToken;
     serverUrl = setup.serverUrl;
 
@@ -110,3 +110,5 @@ function createRecord(data) {
         "swyftsfs__selected__c": data.selected
     };
 }
+
+module.exports = process;

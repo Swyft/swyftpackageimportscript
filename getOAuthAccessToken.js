@@ -1,8 +1,8 @@
-import axios from 'axios';
-import fs from 'fs';
-import url from 'url';
+const axios = require('axios');
+const fs = require('fs');
+const url = require('url');
 
-export default async function process() {
+async function process() {
     const settings_str = fs.readFileSync('env_config.json', 'utf8');
     const settings = JSON.parse(settings_str); 
     let accessToken = '';
@@ -51,26 +51,6 @@ export default async function process() {
             serverUrl
         };
     }
-
-    /*
-    axios(config)
-        .then(function (response) {
-            const returnXml = JSON.stringify(response.data).toString('utf8');
-            //console.log(returnXml);
-            const re = /\<sessionId>(.*?)\<\/sessionId>/;
-            const serverre = /\<serverUrl>(.*?)\<\/serverUrl>/;
-            const results = returnXml.match(re);
-            const serverUrlResults = returnXml.match(serverre);
-            const accessToken = results[1];
-            const server = url.parse(serverUrlResults[1]);
-            const serverUrl = `${server.protocol}//${server.host}`;
-            console.log(`Access Token: ${accessToken}`);
-            console.log(`Server Url: ${serverUrl}`);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    */
 }
 
-
+module.exports = process;

@@ -1,7 +1,6 @@
 {
   "name": "swyftpackageimportscript",
   "version": "1.0.0",
-  "type": "module",
   "description": "Use this script to import UI API menus and actions to Swyft Mobile",
   "main": "runall.js",
   "scripts": {

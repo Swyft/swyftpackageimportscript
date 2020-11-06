@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { promises as fsPromise } from 'fs';
+const axios = require('axios');
+const fsPromise = require('fs').promises;
 
-export default async function importSwyftConfig(setup) {
+async function importSwyftConfig(setup) {
     try {
         const result = await fsPromise.readFile('swyftsfs__Swyft_Menu_Config__cs.json');
         const json_data = JSON.parse(result);
@@ -32,3 +32,5 @@ function createConfig(setup) {
         data : setup.data
     };
 }
+
+module.exports = importSwyftConfig;

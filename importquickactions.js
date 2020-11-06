@@ -1,8 +1,8 @@
 
-import axios from 'axios';
-import { promises as fsPromise } from 'fs';
+const axios = require('axios');
+const fsPromise = require('fs').promises;
 
-export default async function process(setup) {
+async function process(setup) {
     const strdata = await fsPromise.readFile('swyftsfs__Swyft_Quick_Action__cs.json', 'utf8');
     const data = JSON.parse(strdata);
     const records = data.records;
@@ -30,3 +30,5 @@ function createConfig(setup) {
         data : setup.data      
     };
 }
+
+module.exports = process;
