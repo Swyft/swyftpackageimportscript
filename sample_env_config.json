@@ -1,7 +1,11 @@
 {
     "username": "development@swyftmobile.com.preview1",
-    "password": "Swyft@220",
-    "secretToken": "9ZmZQz9v6AEEuk8X42Q8qP9Wg", 
+    "password": "pasword@123",
+    "secretToken": "jflksd8fsdnl8fsnfsdfs", 
     "loginURL": "https://test.salesforce.com/",
-    "version": "v49.0"
+    "version": "v49.0",
+    "proxy_host": "127.0.0.1",
+    "proxy_port": "8080",
+    "proxy_user": "",
+    "proxy_pass": ""
 }

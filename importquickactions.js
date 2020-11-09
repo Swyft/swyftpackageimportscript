@@ -19,7 +19,7 @@ async function process(setup) {
 }
 
 function createConfig(setup) {
-    return {
+    const config = {
         method: 'post',
         url: `${setup.serverUrl}/services/data/v50.0/sobjects/swyftsfs__Swyft_Quick_Action__c`,
         headers: { 
@@ -29,6 +29,19 @@ function createConfig(setup) {
         },
         data : setup.data      
     };
+
+    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+        config.proxy = {
+            host: `${setup.proxy_host}`,
+            port: `${setup.proxy_port}`,
+            auth: {
+                username: setup.proxy_user,
+                password: setup.proxy_pass
+            }
+        };
+    }
+
+    return config;
 }
 
 module.exports = process;

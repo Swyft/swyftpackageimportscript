@@ -80,7 +80,7 @@ async function process(setup) {
 }
 
 function createMainConfig(setup) {
-    return {
+    const config = {
         method: 'get',
         url: `${setup.serverUrl}/services/data/v50.0/query/?q=SELECT swyftsfs__objectApiName__c FROM swyftsfs__Swyft_Menu_Config__c GROUP BY swyftsfs__objectApiName__c ORDER BY swyftsfs__objectApiName__c`,
         headers: { 
@@ -89,10 +89,23 @@ function createMainConfig(setup) {
             'Cookie': 'BrowserId=xeBHlAmcEeu0wClP9sz-iA'
         }
     };
+
+    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+        config.proxy = {
+            host: `${setup.proxy_host}`,
+            port: `${setup.proxy_port}`,
+            auth: {
+                username: setup.proxy_user,
+                password: setup.proxy_pass
+            }
+        };
+    }
+
+    return config;
 }
 
 function createFirstRecordConfig(sObject) {
-    return {
+    const config = {
         method: 'get',
         url: `${serverUrl}/services/data/v50.0/query/?q=SELECT Id FROM ${sObject} LIMIT 1`,
         headers: { 
@@ -100,11 +113,24 @@ function createFirstRecordConfig(sObject) {
           'Content-Type': 'application/json', 
           'Cookie': 'BrowserId=xeBHlAmcEeu0wClP9sz-iA'
         }
-      };
+    };
+
+    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+        config.proxy = {
+            host: `${setup.proxy_host}`,
+            port: `${setup.proxy_port}`,
+            auth: {
+                username: setup.proxy_user,
+                password: setup.proxy_pass
+            }
+        };
+    }
+
+    return config;
 }
 
 function createQuickActionConfig(sObject) {
-    return {
+    const config = {
         method: 'get',
         url: `${serverUrl}/services/data/v47.0/ui-api/actions/record/${sObject}?formFactor=Small`,
         headers: { 
@@ -113,6 +139,19 @@ function createQuickActionConfig(sObject) {
             'Cookie': 'BrowserId=xeBHlAmcEeu0wClP9sz-iA'
         }
     };
+
+    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+        config.proxy = {
+            host: `${setup.proxy_host}`,
+            port: `${setup.proxy_port}`,
+            auth: {
+                username: setup.proxy_user,
+                password: setup.proxy_pass
+            }
+        };
+    }
+
+    return config;
 }
 
 function createRecord(item) {

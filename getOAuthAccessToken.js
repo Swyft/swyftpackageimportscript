@@ -32,6 +32,17 @@ async function process() {
         data : data
     };
 
+    if (settings.proxy_host !== undefined && settings.proxy_port !== undefined) {
+        config.proxy = {
+            host: `${settings.proxy_host}`,
+            port: `${settings.proxy_port}`,
+            auth: {
+                username: settings.proxy_user,
+                password: settings.proxy_pass
+            }
+        };
+    }
+
     try {
         const response = await axios(config);
         const returnXml = JSON.stringify(response.data).toString('utf8');
@@ -48,7 +59,11 @@ async function process() {
     } finally {
         return {
             accessToken,
-            serverUrl
+            serverUrl,
+            'proxy_host': settings.proxy_host,
+            'proxy_port': settings.proxy_port,
+            'proxy_user': settings.proxy_user,
+            'proxy_pass': settings.proxy_pass
         };
     }
 }

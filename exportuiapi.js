@@ -22,6 +22,17 @@ async function process(setup) {
         }
     };
 
+    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+        config.proxy = {
+            host: `${setup.proxy_host}`,
+            port: `${setup.proxy_port}`,
+            auth: {
+                username: setup.proxy_user,
+                password: setup.proxy_pass
+            }
+        };
+    }
+
     try {
         const response = await axios(config);
         const appsObject = response.data;
@@ -51,7 +62,7 @@ async function processMenuItems() {
 }
 
 function createAppConfig(setup) {
-    return {
+    const config = {
         method: 'get',
         url: `${setup.serverUrl}/services/data/v50.0/ui-api/apps/${setup.appId}?userCustomizations=true&formFactor=Small`,
         headers: { 
@@ -59,6 +70,19 @@ function createAppConfig(setup) {
             'Cookie': 'BrowserId=xeBHlAmcEeu0wClP9sz-iA'
         }
     }
+
+    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+        config.proxy = {
+            host: `${setup.proxy_host}`,
+            port: `${setup.proxy_port}`,
+            auth: {
+                username: setup.proxy_user,
+                password: setup.proxy_pass
+            }
+        };
+    }
+
+    return config;
 }
 
 async function handleMenuItem(item) {
