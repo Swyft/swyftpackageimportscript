@@ -6,3 +6,9 @@ delete configs;
 
 List<swyftsfs__Swyft_Quick_Action__c> actions = [SELECT Id FROM swyftsfs__Swyft_Quick_Action__c];
 delete actions;
+
+/*
+,
+    "proxy_user": "squiduser",
+    "proxy_pass": "squiduser"
+*/

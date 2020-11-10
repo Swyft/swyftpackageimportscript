@@ -9,6 +9,7 @@ process();
 async function process() {
     console.log('Script Beginning UI API import');
     const servermetainfo = await getOAuthAccessToken();
+    console.log(servermetainfo)
     await exportuiapi(servermetainfo);
     await importswyftconfig(servermetainfo);
     await exportquickactions(servermetainfo);

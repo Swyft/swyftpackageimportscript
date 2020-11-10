@@ -7,7 +7,14 @@ async function importSwyftConfig(setup) {
         const json_data = JSON.parse(result);
 
         for (const item of json_data.records) {
-            const config = createConfig({ 'serverUrl': setup.serverUrl, 'token': setup.accessToken, 'data': item });
+            const config = createConfig({ 
+                'serverUrl': setup.serverUrl, 
+                'token': setup.accessToken, 
+                'proxy_host': setup.proxy_host,
+                'proxy_port': setup.proxy_port,
+                'proxy_user': setup.proxy_user,
+                'proxy_pass': setup.proxy_pass, 
+                'data': item });
             try {
                 const response = await axios(config);
                 console.log(response.data);
@@ -35,12 +42,15 @@ function createConfig(setup) {
     if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
         config.proxy = {
             host: `${setup.proxy_host}`,
-            port: `${setup.proxy_port}`,
-            auth: {
-                username: setup.proxy_user,
-                password: setup.proxy_pass
-            }
+            port: `${setup.proxy_port}`
         };
+
+        if (setup.proxy_user !== undefined && setup.proxy_pass !== undefined) {
+            config.proxy.auth = {
+                username: `${setup.proxy_user}`,
+                password: `${setup.proxy_pass}`
+            };
+        }
     }
 
     return config;

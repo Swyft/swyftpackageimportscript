@@ -9,9 +9,18 @@ let globalMenuJson = {
 let serverUrl = 'https://swyftprod--Preview1.my.salesforce.com';
 let token = '';
 
+let proxy_host;
+let proxy_port;
+let proxy_user;
+let proxy_pass;
+
 async function process(setup) {
     token = setup.accessToken;
     serverUrl = setup.serverUrl;
+    proxy_host = setup.proxy_host;
+    proxy_port = setup.proxy_port;
+    proxy_user = setup.proxy_user;
+    proxy_pass = setup.proxy_pass;
 
     const config = {
         method: 'get',
@@ -22,15 +31,18 @@ async function process(setup) {
         }
     };
 
-    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+    if (proxy_host !== undefined && proxy_port !== undefined) {
         config.proxy = {
-            host: `${setup.proxy_host}`,
-            port: `${setup.proxy_port}`,
-            auth: {
-                username: setup.proxy_user,
-                password: setup.proxy_pass
-            }
+            host: `${proxy_host}`,
+            port: `${proxy_port}`,
         };
+
+        if (proxy_user !== undefined && proxy_pass !== undefined) {
+            config.proxy.auth = {
+                username: `${proxy_user}`,
+                password: `${proxy_pass}`
+            };
+        }
     }
 
     try {
@@ -71,15 +83,18 @@ function createAppConfig(setup) {
         }
     }
 
-    if (setup.proxy_host !== undefined && setup.proxy_port !== undefined) {
+    if (proxy_host !== undefined && proxy_port !== undefined) {
         config.proxy = {
-            host: `${setup.proxy_host}`,
-            port: `${setup.proxy_port}`,
-            auth: {
-                username: setup.proxy_user,
-                password: setup.proxy_pass
-            }
+            host: `${proxy_host}`,
+            port: `${proxy_port}`,
         };
+
+        if (proxy_user !== undefined && proxy_pass !== undefined) {
+            config.proxy.auth = {
+                username: `${proxy_user}`,
+                password: `${proxy_pass}`
+            };
+        }
     }
 
     return config;

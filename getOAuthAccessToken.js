@@ -36,11 +36,14 @@ async function process() {
         config.proxy = {
             host: `${settings.proxy_host}`,
             port: `${settings.proxy_port}`,
-            auth: {
-                username: settings.proxy_user,
-                password: settings.proxy_pass
-            }
         };
+
+        if (settings.proxy_user !== undefined && settings.proxy_pass !== undefined) {
+            config.proxy.auth = {
+                username: `${settings.proxy_user}`,
+                password: `${settings.proxy_pass}`
+            };
+        }
     }
 
     try {
@@ -55,7 +58,7 @@ async function process() {
         const server = url.parse(serverUrlResults[1]);
         serverUrl = `${server.protocol}//${server.host}`;
     } catch (err) {
-        console.log(error);
+        console.log(err);
     } finally {
         return {
             accessToken,

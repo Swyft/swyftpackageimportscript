@@ -9,3 +9,8 @@
     "proxy_user": "",
     "proxy_pass": ""
 }
+// ,
+//     "proxy_host": "123.87.12.15",
+//     "proxy_port": "3128",
+//     "proxy_user": "squiduser",
+//     "proxy_pass": "squiduser"
