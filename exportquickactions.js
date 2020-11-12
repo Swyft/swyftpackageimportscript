@@ -156,7 +156,7 @@ function createFirstRecordConfig(sObject) {
 function createQuickActionConfig(sObject) {
     const config = {
         method: 'get',
-        url: `${serverUrl}/services/data/v47.0/ui-api/actions/record/${sObject}?formFactor=Small`,
+        url: `${serverUrl}/services/data/v47.0/ui-api/actions/record/${sObject}?formFactor=Large`,
         headers: { 
             'Authorization': `Bearer ${token}`, 
             'Content-Type': 'application/json', 
