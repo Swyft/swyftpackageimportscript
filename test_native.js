@@ -4,13 +4,13 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const settings_str = fs.readFileSync('env_config.json', 'utf8');
 const settings = JSON.parse(settings_str); 
 
-const { proxy_host, proxy_port, proxy_user, proxy_pass } = settings;
+const { proxy_host, proxy_port } = settings;
 
 // Set the Bearer token in this token and host variables 
 const token = '00D2f0000008iyk!AQoAQBFhYBWCAAPqep5rrgw25xzZprS.sqdF7frZjwEf2Al_KeOethM6YJLEtaoxx5wk.GHZ9Kah73_y_CQm0qb_jV2LwNYr';
 const host = 'ibcm--devdt.my.salesforce.com';
 
-const proxyUrl = `http://${proxy_user}:${proxy_pass}@${proxy_host}:${proxy_port}`;
+const proxyUrl = `http://${proxy_host}:${proxy_port}`;
 
 const agent = new HttpsProxyAgent(proxyUrl);
 
