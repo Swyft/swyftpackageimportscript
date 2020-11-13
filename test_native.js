@@ -4,18 +4,20 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const settings_str = fs.readFileSync('env_config.json', 'utf8');
 const settings = JSON.parse(settings_str); 
 
-const { proxy_host, proxy_port } = settings;
+const { proxy_host, proxy_port, proxy_user, proxy_pass } = settings;
 
-// Set the Bearer token in this token variable
-const token = '00D1k000000Crqr!ARgAQOMgUMJzsM9VTkbE9HZ8rgkvGTnZqbvgfINQwYk27b5S6x.RKN4RQLoDQXLnNN7R80Fq0h_vhrZ0yNjN86E6AzTx9jOW';
+// Set the Bearer token in this token and host variables 
+const token = '00D2f0000008iyk!AQoAQBFhYBWCAAPqep5rrgw25xzZprS.sqdF7frZjwEf2Al_KeOethM6YJLEtaoxx5wk.GHZ9Kah73_y_CQm0qb_jV2LwNYr';
+const host = 'ibcm--devdt.my.salesforce.com';
 
-const proxyUrl = `http://${proxy_host}:${proxy_port}`;
+const proxyUrl = `http://${proxy_user}:${proxy_pass}@${proxy_host}:${proxy_port}`;
 
 const agent = new HttpsProxyAgent(proxyUrl);
 
 const options = {
   'method': 'GET',
-  'hostname': 'swyftprod--Preview1.my.salesforce.com',
+  'hostname': host,
+  'agent': agent,
   'path': '/services/data/v50.0/ui-api/apps?userCustomizations=true&formFactor=Small',
   'headers': {
     'Authorization': `Bearer ${token}`,
@@ -24,7 +26,7 @@ const options = {
   'maxRedirects': 20
 };
 
-options.agent = agent;
+//options.agent = agent;
 
 console.log(options);
 
@@ -39,6 +41,9 @@ let req = https.request(options, function (res) {
     const body = Buffer.concat(chunks);
     fs.writeFile('test.json', body.toString(), () => {
         console.log('File written');
+    });
+    fs.writeFile('proxy_options.json', JSON.stringify(options), () => {
+      console.log('File written');
     });
   });
 
