@@ -27,7 +27,7 @@ const options = {
 };
 
 //options.agent = agent;
-
+delete options.agent.proxy.auth;
 console.log(options);
 
 let req = https.request(options, function (res) {
