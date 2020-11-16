@@ -4,13 +4,13 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const settings_str = fs.readFileSync('env_config.json', 'utf8');
 const settings = JSON.parse(settings_str); 
 
-const { proxy_host, proxy_port } = settings;
+const { proxy_host, proxy_port, proxy_user, proxy_pass } = settings;
 
 // Set the Bearer token in this token and host variables 
-const token = '00D2f0000008iyk!AQoAQBFhYBWCAAPqep5rrgw25xzZprS.sqdF7frZjwEf2Al_KeOethM6YJLEtaoxx5wk.GHZ9Kah73_y_CQm0qb_jV2LwNYr';
+const token = '00D2f0000008iyk!AQoAQAgCRrKNPtd3R0IWhSHmx1P_U0AD6j4YCfgZdbfQ83ln4FMYbWq5vvOXtpSMUQfwF8.DrKBsi3rwXgbPLQY3iNH7vKq9';
 const host = 'ibcm--devdt.my.salesforce.com';
 
-const proxyUrl = `http://${proxy_host}:${proxy_port}`;
+const proxyUrl = `http://${proxy_user}:${proxy_pass}@${proxy_host}:${proxy_port}`;
 
 const agent = new HttpsProxyAgent(proxyUrl);
 
@@ -27,29 +27,35 @@ const options = {
 };
 
 //options.agent = agent;
-delete options.agent.proxy.auth;
+//delete options.agent.proxy.auth;
 console.log(options);
 
-let req = https.request(options, function (res) {
-  let chunks = [];
+process();
 
-  res.on("data", function (chunk) {
-    chunks.push(chunk);
-  });
+async function process() {
+  const result = await creatHttpPromise(options);
+  console.log(result);
+}
 
-  res.on("end", function (chunk) {
-    const body = Buffer.concat(chunks);
-    fs.writeFile('test.json', body.toString(), () => {
-        console.log('File written');
+function creatHttpPromise(options) {
+  return new Promise((resolve, reject) => {
+    let req = https.request(options, function (res) {
+        let chunks = [];
+      
+        res.on("data", function (chunk) {
+          chunks.push(chunk);
+        });
+      
+        res.on("end", function (chunk) {
+            const body = Buffer.concat(chunks);
+            resolve(JSON.parse(body.toString()));
+        });
+      
+        res.on("error", function (error) {
+            reject(error);
+        });
     });
-    fs.writeFile('proxy_options.json', JSON.stringify(options), () => {
-      console.log('File written');
-    });
-  });
-
-  res.on("error", function (error) {
-    console.error(error);
-  });
+      
+    req.end();
 });
-
-req.end();
+}

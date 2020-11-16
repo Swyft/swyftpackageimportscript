@@ -11,7 +11,7 @@ async function process() {
     const servermetainfo = await getOAuthAccessToken();
     console.log(servermetainfo)
     await exportuiapi(servermetainfo);
-    await importswyftconfig(servermetainfo);
+    //await importswyftconfig(servermetainfo);
     await exportquickactions(servermetainfo);
-    await importquickactions(servermetainfo);
+    //await importquickactions(servermetainfo);
 }
