@@ -25,6 +25,7 @@ async function process(setup) {
     proxy_user = setup.proxy_user;
     proxy_pass = setup.proxy_pass;
 
+    //proxyUrl = `http://${proxy_user}:${proxy_pass}@${proxy_host}:${proxy_port}`;
     proxyUrl = `http://${proxy_host}:${proxy_port}`;
 
     const sObjects = await getSObjectSetFromCSV();
@@ -193,7 +194,7 @@ async function getSObjectSetFromCSV() {
 }
 
 async function writeQuickActionsToCSV(quickActions) {
-    let flatdata = '';
+    let flatdata = '"Name","swyftsfs__selected__c","swyftsfs__API_Name__c","swyftsfs__label__c","swyftsfs__sourceObject__c"\n';
     for (let record of quickActions) {
         let line = `"${record.Name}",${record.swyftsfs__selected__c},"${record.swyftsfs__API_Name__c}","${record.swyftsfs__label__c}","${record.swyftsfs__sourceObject__c}"\n`;
         flatdata += line;

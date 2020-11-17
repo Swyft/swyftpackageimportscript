@@ -26,7 +26,8 @@ async function process(setup) {
     proxy_user = setup.proxy_user;
     proxy_pass = setup.proxy_pass;
 
-    proxyUrl = `http://${proxy_host}:${proxy_port}`
+    //proxyUrl = `http://${proxy_user}:${proxy_pass}@${proxy_host}:${proxy_port}`
+    proxyUrl = `http://${proxy_host}:${proxy_port}`;
 
     const agent = new HttpsProxyAgent(proxyUrl);
     const fullUrl = new URL(serverUrl);
@@ -46,7 +47,7 @@ async function process(setup) {
         processApp(app);
     }
     await processMenuItems();
-    let flatdata = '';
+    let flatdata = '"Name","swyftsfs__appId__c","swyftsfs__itemType__c","swyftsfs__label__c","swyftsfs__objectApiName__c","swyftsfs__selected__c"\n';
     for (let record of globalMenuJson.records) {
         let line = `"${record.Name}",${record.swyftsfs__appId__c},"${record.swyftsfs__itemType__c}","${record.swyftsfs__label__c}","${record.swyftsfs__objectApiName__c}","${record.swyftsfs__selected__c}"\n`;
         flatdata += line;
@@ -99,7 +100,7 @@ function createAppConfigOptions(setup) {
         'maxRedirects': 20
     };
 
-    delete options.agent.proxy.auth;
+    //delete options.agent.proxy.auth;
 
     return options;
 }
